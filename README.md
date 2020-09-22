@@ -1,1 +1,1 @@
-# smart-credential
+# Smart Credential
