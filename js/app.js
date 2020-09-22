@@ -73,7 +73,6 @@ function generatePassword(lower, upper, number, symbol, length) {
 	}
 	// Add final password to password variable, shuffle, and return
 	const randomPassword = generatedPassword.slice(0, length);
-	console.log(randomPassword);
 
 	let finalPassword = shuffleString(randomPassword);
 
