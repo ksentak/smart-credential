@@ -68,14 +68,27 @@ function generatePassword(lower, upper, number, symbol, length) {
 	for (let i = 0; i < length; i += typesCount) {
 		typesArray.forEach(type => {
 			const funcName = Object.keys(type)[0];
-			console.log(funcName);
-
 			generatedPassword += randomFunc[funcName]();
 		});
 	}
 	// Add final password to password variable, shuffle, and return
-	const finalPassword = generatedPassword.slice(0, length);
+	const randomPassword = generatedPassword.slice(0, length);
+	console.log(randomPassword);
+
+	let finalPassword = shuffleString(randomPassword);
+
 	return finalPassword;
+}
+
+// Shuffle function
+function shuffleString(str) {
+	let array = str.split('');
+
+	array.sort(function () {
+		return 0.5 - Math.random();
+	});
+	str = array.join('');
+	return str;
 }
 
 // Generator functions
