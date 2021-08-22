@@ -4,7 +4,7 @@
     <div class="result-container">
       <span id="result"></span>
       <button class="btn" id="clipboard">
-        <i class="far fa-clipboard"></i>
+        <i class="fa fa-clipboard"></i>
       </button>
     </div>
     <div class="settings">
