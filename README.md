@@ -1,5 +1,24 @@
-# Smart Credential
+# smart-credential
 
-Smart Credential is a random password generator that is built with JavaScript. Input your desired password length (4-20 characters) and select the specific character types you would like to include. Generate your password and copy it to your clipboard to use.
+## Project setup
+```
+npm install
+```
 
-![App Screenshot](./screenshots/smart_credential.png)
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
