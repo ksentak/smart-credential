@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Smart Credential</h2>
     <div class="result-container">
-      <span id="result"></span>
+      <span id="result">{{ generatedVal }}</span>
       <button class="btn" id="clipboard">
         <i class="fa fa-clipboard"></i>
       </button>
@@ -35,7 +35,28 @@
 
 <script>
 export default {
-  name: 'PassGenerator'
+  name: 'PassGenerator',
+  data() {
+    return {
+      generatedVal: ''
+    };
+  },
+  methods: {
+    // Generator functions
+    randomLower() {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+    },
+    randomUpper() {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+    },
+    randomNumber() {
+      return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+    },
+    randomSymbol() {
+      const symbolString = '!@#$%^&*(){}[]=<>/,.';
+      return symbolString[Math.floor(Math.random() * symbolString.length)];
+    }
+  }
 };
 </script>
 
