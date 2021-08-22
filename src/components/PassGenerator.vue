@@ -10,26 +10,32 @@
     <div class="settings">
       <div class="setting">
         <label>Password length</label>
-        <input type="number" id="length" min="4" max="20" value="12" />
+        <input type="number" id="length" min="4" max="20" v-model="length" />
       </div>
       <div class="setting">
         <label>Include uppercase letters</label>
-        <input type="checkbox" id="uppercase" checked />
+        <input type="checkbox" id="uppercase" checked v-model="hasUpper" />
       </div>
       <div class="setting">
         <label>Include lowercase letters</label>
-        <input type="checkbox" id="lowercase" checked />
+        <input type="checkbox" id="lowercase" checked v-model="hasLower" />
       </div>
       <div class="setting">
         <label>Include numbers</label>
-        <input type="checkbox" id="numbers" checked />
+        <input type="checkbox" id="numbers" checked v-model="hasNumber" />
       </div>
       <div class="setting">
         <label>Include symbols</label>
-        <input type="checkbox" id="symbols" checked />
+        <input type="checkbox" id="symbols" checked v-model="hasSymbol" />
       </div>
     </div>
-    <button class="btn btn-large" id="generate">Generate password</button>
+    <button
+      class="btn btn-large"
+      id="generate"
+      @click="generatedPassword(hasLower, hasUpper, hasNumber, hasSymbol, length)"
+    >
+      Generate password
+    </button>
   </div>
 </template>
 
@@ -38,7 +44,12 @@ export default {
   name: 'PassGenerator',
   data() {
     return {
-      generatedVal: ''
+      generatedVal: '',
+      hasLower: true,
+      hasUpper: true,
+      hasNumber: true,
+      hasSymbol: true,
+      length: 12
     };
   },
   methods: {
@@ -87,15 +98,15 @@ export default {
       for (let i = 0; i < length; i += typesCount) {
         typesArray.forEach((type) => {
           const funcName = Object.keys(type)[0];
-          generatedPassword += randomFunc[funcName]();
+          generatedPassword += this.randomFunc[funcName]();
         });
       }
       // Add final password to password variable, shuffle, and return
       const randomPassword = generatedPassword.slice(0, length);
 
-      let finalPassword = shuffleString(randomPassword);
+      let finalPassword = this.shuffleString(randomPassword);
 
-      return finalPassword;
+      this.generatedVal = finalPassword;
     }
   }
 };
