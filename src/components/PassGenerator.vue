@@ -55,6 +55,47 @@ export default {
     randomSymbol() {
       const symbolString = '!@#$%^&*(){}[]=<>/,.';
       return symbolString[Math.floor(Math.random() * symbolString.length)];
+    },
+
+    // Shuffle function
+    shuffleString(str) {
+      let array = str.split('');
+
+      array.sort(function() {
+        return 0.5 - Math.random();
+      });
+      str = array.join('');
+      return str;
+    },
+
+    // Generate password function
+    generatePassword(lower, upper, number, symbol, length) {
+      // Initialize password variable
+      let generatedPassword = '';
+
+      // Filter unchecked types
+      const typesCount = lower + upper + number + symbol;
+      const typesArray = [{ lower }, { upper }, { number }, { symbol }].filter(
+        (i) => Object.values(i)[0]
+      );
+
+      if (typesCount === 0) {
+        return '';
+      }
+
+      // Loop over length call generator function for each type
+      for (let i = 0; i < length; i += typesCount) {
+        typesArray.forEach((type) => {
+          const funcName = Object.keys(type)[0];
+          generatedPassword += randomFunc[funcName]();
+        });
+      }
+      // Add final password to password variable, shuffle, and return
+      const randomPassword = generatedPassword.slice(0, length);
+
+      let finalPassword = shuffleString(randomPassword);
+
+      return finalPassword;
     }
   }
 };
