@@ -3,7 +3,7 @@
     <h2>Smart Credential</h2>
     <div class="result-container">
       <span id="result">{{ generatedVal }}</span>
-      <button class="btn" id="clipboard">
+      <button class="btn" id="clipboard" @click="copy()">
         <i class="fa fa-clipboard"></i>
       </button>
     </div>
@@ -32,7 +32,7 @@
     <button
       class="btn btn-large"
       id="generate"
-      @click="generatedPassword(hasLower, hasUpper, hasNumber, hasSymbol, length)"
+      @click="generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length)"
     >
       Generate password
     </button>
@@ -84,6 +84,13 @@ export default {
       // Initialize password variable
       let generatedPassword = '';
 
+      const randomFunc = {
+        lower: this.randomLower,
+        upper: this.randomUpper,
+        number: this.randomNumber,
+        symbol: this.randomSymbol
+      };
+
       // Filter unchecked types
       const typesCount = lower + upper + number + symbol;
       const typesArray = [{ lower }, { upper }, { number }, { symbol }].filter(
@@ -98,7 +105,7 @@ export default {
       for (let i = 0; i < length; i += typesCount) {
         typesArray.forEach((type) => {
           const funcName = Object.keys(type)[0];
-          generatedPassword += this.randomFunc[funcName]();
+          generatedPassword += randomFunc[funcName]();
         });
       }
       // Add final password to password variable, shuffle, and return
@@ -107,6 +114,22 @@ export default {
       let finalPassword = this.shuffleString(randomPassword);
 
       this.generatedVal = finalPassword;
+    },
+    copy() {
+      console.log('tes');
+      const textarea = document.createElement('textarea');
+      const password = this.generatedVal;
+
+      if (!password) {
+        return;
+      }
+
+      textarea.value = password;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      textarea.remove();
+      alert('Password copied to clipboard');
     }
   }
 };
